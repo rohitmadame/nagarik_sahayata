@@ -64,12 +64,13 @@ WSGI_APPLICATION = 'nagarika_sahayata.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 load_dotenv()
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'nagarik_db',
+        'NAME': os.getenv('nagarik_db'),
         'CLIENT': {
-            'host': 'mongodb://mongo:nltfjEjShgxNYbHyoSBTFFEUPWSVAQju@mongodb.railway.internal:27017/nagarik_db',
+            'host': os.getenv('mongodb://mongo:nltfjEjShgxNYbHyoSBTFFEUPWSVAQju@mongodb.railway.internal:27017'),
         }
     }
 }
