@@ -66,11 +66,13 @@ load_dotenv()
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'nagarik_db',
+        'CLIENT': {
+            'host': 'mongodb://mongo:nltfjEjShgxNYbHyoSBTFFEUPWSVAQju@mongodb.railway.internal:27017/nagarik_db',
+        }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
