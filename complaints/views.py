@@ -7,6 +7,7 @@ from django.views.decorators.http import require_POST
 from django.http import JsonResponse, HttpResponse
 from django.contrib import messages
 from .models import Complaint, ComplaintImage
+from .forms import ComplaintFilterForm
 
 def user_login(request):
     if request.method == 'POST':
@@ -46,18 +47,35 @@ def user_dashboard(request):
 
 @login_required
 def admin_dashboard(request):
-    if not request.user.is_staff:
-        return redirect('user_dashboard')
-    
-    complaints = Complaint.objects.select_related('user').all().order_by('-created_at')
-    status_counts = {status: Complaint.objects.filter(status=status).count() 
-                    for status in ['pending', 'in_progress', 'resolved']}
-    
-    return render(request, 'admin_dashboard.html', {
+    complaints = Complaint.objects.all()  # Fetch all complaints by default
+
+    # Handle filter form submission
+    if request.method == 'GET':
+        city = request.GET.get('city')
+        ward = request.GET.get('ward')
+        status = request.GET.get('status')
+
+        # Apply filters
+        if city:
+            complaints = complaints.filter(city__icontains=city)
+        if ward:
+            complaints = complaints.filter(ward_number=ward)
+        if status:
+            complaints = complaints.filter(status=status)
+
+    # Get status counts for the cards
+    status_counts = {
+        'pending': complaints.filter(status='pending').count(),
+        'in_progress': complaints.filter(status='in_progress').count(),
+        'resolved': complaints.filter(status='resolved').count(),
+    }
+
+    context = {
         'complaints': complaints,
         'status_counts': status_counts,
-        'total_complaints': sum(status_counts.values())
-    })
+        'STATUS_CHOICES': Complaint.STATUS_CHOICES,  # Pass STATUS_CHOICES to the template
+    }
+    return render(request, 'admin_dashboard.html', context)
 
 @login_required
 def add_complaint(request):
@@ -122,3 +140,8 @@ def update_status(request, complaint_id):
 def complaint_detail(request, complaint_id):
     complaint = get_object_or_404(Complaint, id=complaint_id)
     return render(request, 'complaint_detail.html', {'complaint': complaint})
+
+def contact(request):
+    return render(request, 'complaints/contact_us.html') 
+def edit_profile(request):
+    return render(request, 'edit_profile.html')  # Create an edit_profile.html template

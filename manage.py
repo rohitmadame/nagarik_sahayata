@@ -2,6 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+from packaging.version import Version as LooseVersion
+
 
 
 def main():

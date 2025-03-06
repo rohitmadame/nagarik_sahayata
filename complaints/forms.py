@@ -17,3 +17,8 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ("username",)
+
+class ComplaintFilterForm(forms.Form):
+    city = forms.CharField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Filter by city'}))
+    ward = forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'placeholder': 'Filter by ward'}))
+    status = forms.ChoiceField(required=False, choices=Complaint.STATUS_CHOICES, widget=forms.Select(attrs={'class': 'form-select'}))

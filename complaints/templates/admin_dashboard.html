@@ -59,6 +59,31 @@
         </div>
     </div>
 
+    <!-- Filter Form -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                <input type="text" name="city" class="form-control" placeholder="Filter by city" value="{{ request.GET.city }}">
+            </div>
+            <div class="col-md-3">
+                <input type="number" name="ward" class="form-control" placeholder="Filter by ward" value="{{ request.GET.ward }}">
+            </div>
+            <div class="col-md-3">
+                <select name="status" class="form-select">
+                    <option value="">Filter by status</option>
+                    {% for value, label in STATUS_CHOICES %}
+                    <option value="{{ value }}" {% if request.GET.status == value %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100"><i class="bi bi-filter me-2"></i>Filter</button>
+            </div>
+        </form>
+    </div>
+</div>
+
     <!-- Complaints Table -->
     <div class="card border-0 shadow-lg">
         <div class="card-header bg-white border-0 py-3">
@@ -87,7 +112,6 @@
                             <td>{{ complaint.get_complaint_type_display }}</td>
                             <td>{{ complaint.city }}</td>
                             <td>{{ complaint.ward_number }}</td>
-
                             <td>
                                 <select class="form-select status-select {% if complaint.status == 'pending' %}border-warning
                                     {% elif complaint.status == 'in_progress' %}border-primary
@@ -111,7 +135,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="7" class="text-center py-4">No complaints found</td>
+                            <td colspan="8" class="text-center py-4">No complaints found</td>
                         </tr>
                         {% endfor %}
                     </tbody>

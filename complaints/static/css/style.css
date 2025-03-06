@@ -101,3 +101,16 @@ a.text-decoration-none:hover {
     padding: 0.5em 0.75em;
     font-weight: 500;
 }
+
+/* Custom Sign In button */
+.btn-custom-signin {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.btn-custom-signin:hover {
+    background-color: #fff;
+    color: #0d6efd; /* Bootstrap primary color */
+}

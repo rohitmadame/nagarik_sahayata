@@ -12,6 +12,8 @@ urlpatterns = [
     path('add-complaint/', views.add_complaint, name='add_complaint'),
     path('complaint/<int:complaint_id>/', views.complaint_detail, name='complaint_detail'),
     path('update-status/<int:complaint_id>/', views.update_status, name='update_status'),
+    path('edit-profile/', views.edit_profile, name='edit_profile'),  # Add this line
+    path('contact/', views.contact, name='contact'),
     path('logout/', views.user_logout, name='logout'),
 ]
 

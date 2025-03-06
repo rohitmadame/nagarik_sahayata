@@ -7,39 +7,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Complaint System{% endblock %}</title>
 
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     {% block extra_css %}{% endblock %}
 </head>
 
 <body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-light bg-stunning shade of blue shadow-sm">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img src="{% static 'images/logo.png' %}" 
-                     alt="Complaint App Logo" 
-                     class="d-inline-block align-text-top"
-                     style="height: 40px;">
+            <!-- Logo -->
+            <a class="navbar-brand mx-3" href="/">
+                <img src="{% static 'images/logo.png' %}" alt="Complaint App Logo" class="d-inline-block align-text-top" style="height: 40px;">
             </a>
-            
-            <div class="d-flex align-items-center">
+
+            <!-- Right-side buttons -->
+            <div class="ms-auto d-flex align-items-center">
                 {% if user.is_authenticated %}
                     <a href="{% url 'logout' %}" class="btn btn-outline-light me-2">Logout</a>
                 {% else %}
-                    <a href="{% url 'user_login' %}" class="btn btn-link text-dark text-decoration-none me-3">Sign In</a>
-                    <a href="{% url 'user_register' %}" class="btn btn-primary px-4">Sign Up</a>
+                    <!-- Updated Sign In button -->
+                    <a href="{% url 'user_login' %}" class="btn btn-outline-light me-2">Sign In</a>
+                    <a href="{% url 'user_register' %}" class="btn btn-light text-primary px-4">Sign Up</a>
                 {% endif %}
             </div>
         </div>
     </nav>
 
-    
-
+    <!-- Main Content -->
     <main class="container my-5">
         {% block content %}{% endblock %}
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     {% block extra_js %}{% endblock %}
 </body>
 </html>

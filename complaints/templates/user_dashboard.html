@@ -3,18 +3,17 @@
 
 {% block content %}
 <div class="container-fluid px-4" style="min-height: 100vh;">
-    <!-- Header Section -->
     <div class="d-flex justify-content-between align-items-center mb-5 pt-4">
         <div>
             <h1 class="display-6 fw-bold text-primary mb-2">Welcome, {{ user.username }}</h1>
             <p class="lead text-muted">Your recent complaints and status updates</p>
         </div>
         <a href="{% url 'add_complaint' %}" class="btn btn-primary btn-lg px-4 py-2 shadow-sm">
-            <i class="fas fa-plus-circle me-2"></i>New Complaint
+            <i class="fas fa-plus-circle me-2"></i> New Complaint
         </a>
     </div>
 
-    <!-- Complaints Table Card -->
+    <!-- Complaints Table -->
     <div class="card border-0 shadow-lg rounded-3">
         <div class="card-header bg-primary text-white py-3 rounded-top">
             <h5 class="mb-0 fw-semibold"><i class="fas fa-list-alt me-2"></i>Your Complaints</h5>
@@ -22,20 +21,19 @@
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
-                    <thead class="bg-light-blue">
-                        <tr>
-                            <th class="ps-4"><i class="fas fa-tag me-2"></i>Type</th>
-                            <th><i class="fas fa-city me-2"></i>City</th>
-                            <th><i class="fas fa-map-marker-alt me-2"></i>Ward</th>
-                            <th><i class="fas fa-info-circle me-2"></i>Status</th>
-                            <th class="pe-4"><i class="fas fa-calendar-alt me-2"></i>Date</th>
+                    <thead class="bg-light">
+                        <tr class="text-primary">
+                            <th class="ps-4"><i class="fas fa-tag me-2"></i> Type</th>
+                            <th><i class="fas fa-city me-2"></i> City</th>
+                            <th><i class="fas fa-map-marker-alt me-2"></i> Ward</th>
+                            <th><i class="fas fa-info-circle me-2"></i> Status</th>
+                            <th><i class="fas fa-calendar-alt me-2"></i> Date</th>
+                            <th class="pe-4"><i class="fas fa-eye me-2"></i> Action</th> <!-- Added -->
                         </tr>
                     </thead>
                     <tbody>
                         {% for complaint in complaints %}
-                        <tr class="clickable-row transition-effect" 
-                            style="cursor: pointer;" 
-                            data-href="{% url 'complaint_detail' complaint.id %}">
+                        <tr>
                             <td class="ps-4 fw-medium text-primary">{{ complaint.get_complaint_type_display }}</td>
                             <td>{{ complaint.city }}</td>
                             <td>{{ complaint.ward_number }}</td>
@@ -48,7 +46,16 @@
                                     {{ complaint.get_status_display }}
                                 </span>
                             </td>
-                            <td class="pe-4 text-muted">{{ complaint.created_at|date:"M d, Y" }}</td>
+                            <td class="text-muted">{{ complaint.created_at|date:"M d, Y" }}</td>
+                            <td class="pe-4">
+                                <a href="{% url 'complaint_detail' complaint.id %}" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-info-circle me-1"></i> Details
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-3">No complaints found.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -58,59 +65,4 @@
     </div>
 </div>
 
-<style>
-    .bg-light-blue {
-        background-color: #f0f8ff;
-    }
-    
-    .transition-effect {
-        transition: all 0.2s ease;
-    }
-    
-    .clickable-row:hover {
-        background-color: #f8f9fa !important;
-        transform: translateX(5px);
-    }
-    
-    .card {
-        border-radius: 1rem;
-        overflow: hidden;
-    }
-    
-    .small-icon {
-        font-size: 0.6rem;
-        vertical-align: middle;
-    }
-    
-    .rounded-3 {
-        border-radius: 1rem !important;
-    }
-    
-    .table-hover tbody tr:hover {
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-</style>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Clickable row functionality
-    const rows = document.querySelectorAll('.clickable-row');
-    rows.forEach(row => {
-        row.addEventListener('click', function() {
-            window.location.href = this.dataset.href;
-        });
-        
-        // Add hover effect
-        row.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateX(5px)';
-        });
-        
-        row.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateX(0)';
-        });
-    });
-});
-</script>
 {% endblock %}
