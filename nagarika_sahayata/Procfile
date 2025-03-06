@@ -1,1 +1,1 @@
-web: gunicorn nagarik_sahayata.wsgi --log-file -
+web: gunicorn nagarika_sahayata.wsgi --bind 0.0.0.0:$PORT
