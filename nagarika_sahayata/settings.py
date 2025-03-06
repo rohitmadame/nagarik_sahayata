@@ -10,11 +10,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'vmw8YTk9SNOS4iXosN8xqM0A3dvs6Lea_3r5Er42x-5uddYjDZavI6KBL1rgIgM9lDc'
-DEBUG = 'True'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'your-default-secret-key')
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = ['nagariksahayata-production.up.railway.app', 'localhost']
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -66,8 +66,11 @@ load_dotenv()
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': os.getenv('MONGO_DB_NAME', 'complaint_db'),  # Default to complaint_db if not found
+        'CLIENT': {
+            'host': os.getenv('MONGO_URI'),  
+        }
     }
 }
 
