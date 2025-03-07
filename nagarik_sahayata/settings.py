@@ -94,3 +94,4 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+PORT = os.getenv('PORT', '8000')
