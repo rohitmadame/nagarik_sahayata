@@ -16,7 +16,7 @@ SECRET_KEY = 'vmw8YTk9SNOS4iXosN8xqM0A3dvs6Lea_3r5Er42x-5uddYjDZavI6KBL1rgIgM9lD
 DEBUG = 'False'
 # SECURITY WARNING: don't run with debug turned on in production!
 
-ALLOWED_HOSTS = ['your-app-name.railway.app', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['nagariksahayata-production.up.railway.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
