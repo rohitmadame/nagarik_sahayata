@@ -1,24 +1,22 @@
 from pathlib import Path
 import os
 import dj_database_url
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'vmw8YTk9SNOS4iXosN8xqM0A3dvs6Lea_3r5Er42x-5uddYjDZavI6KBL1rgIgM9lDc'
-DEBUG = 'False'
+SECRET_KEY = os.getenv('SECRET_KEY', 'your-default-secret-key')
+
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv("DEBUG", "False") == "True"
+  # Corrected from 'False' (string) to False (boolean)
 
 ALLOWED_HOSTS = ['nagariksahayata-production.up.railway.app', 'localhost', '127.0.0.1']
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -26,7 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'complaints'
+    'complaints',
 ]
 
 MIDDLEWARE = [
@@ -40,7 +38,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'nagarika_sahayata.urls'
+ROOT_URLCONF = 'nagarik_sahayata.urls'
 
 TEMPLATES = [
     {
@@ -58,71 +56,41 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'nagarika_sahayata.wsgi.application'
+WSGI_APPLICATION = 'nagarik_sahayata.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-
-
+# Database Configuration
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('postgresql://postgres:ptAaMrQoCUSqEdozuGUuXbulitMcBncM@nagariksahayata-production.up.railway.app:5432/railway'))
+    'default': dj_database_url.config(default=os.getenv('postgresql://postgres:ptAaMrQoCUSqEdozuGUuXbulitMcBncM@postgres.railway.internal:5432/railway'))
 }
 
-
 # Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-    {
-        'NAME': 'complaints.validators.UppercaseValidator',
-    },
-    {
-        'NAME': 'complaints.validators.SpecialCharacterValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    {'NAME': 'complaints.validators.UppercaseValidator'},
+    {'NAME': 'complaints.validators.SpecialCharacterValidator'},
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Asia/Kolkata'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
-
+# Static & Media Files
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Authentication URLs
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
 LOGOUT_REDIRECT_URL = '/'
 
-
-MEDIA_URL = '/media/'  # URL prefix for media files
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
