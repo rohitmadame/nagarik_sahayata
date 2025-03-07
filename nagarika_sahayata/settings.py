@@ -64,12 +64,10 @@ WSGI_APPLICATION = 'nagarika_sahayata.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', 'postgres://postgres:ptAaMrQoCUSqEdozuGUuXbulitMcBncM@nagariksahayata-production.up.railway.app:8080/railway'),
-        conn_max_age=600,
-        ssl_require=True
-    )
+    'default': dj_database_url.config(default=os.getenv('postgresql://postgres:ptAaMrQoCUSqEdozuGUuXbulitMcBncM@postgres.railway.internal:5432/railway'))
 }
 
 
