@@ -60,7 +60,7 @@ WSGI_APPLICATION = 'nagarik_sahayata.wsgi.application'
 
 # Database Configuration
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('postgresql://postgres:ptAaMrQoCUSqEdozuGUuXbulitMcBncM@postgres.railway.internal:5432/railway'))
+    'default': dj_database_url.config(default=os.getenv('postgresql://postgres:ptAaMrQoCUSqEdozuGUuXbulitMcBncM@postgres.railway.internal:8000/railway'))
 }
 
 # Password validation
