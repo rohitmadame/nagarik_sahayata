@@ -67,7 +67,7 @@ WSGI_APPLICATION = 'nagarika_sahayata.wsgi.application'
 
 
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('postgresql://postgres:ptAaMrQoCUSqEdozuGUuXbulitMcBncM@postgres.railway.internal:5432/railway'))
+    'default': dj_database_url.config(default=os.getenv('postgresql://postgres:ptAaMrQoCUSqEdozuGUuXbulitMcBncM@nagariksahayata-production.up.railway.app:5432/railway'))
 }
 
 
