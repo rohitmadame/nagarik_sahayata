@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 import dj_database_url
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -12,7 +13,6 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'your-default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
-  # Corrected from 'False' (string) to False (boolean)
 
 ALLOWED_HOSTS = ['nagariksahayata-production.up.railway.app', 'localhost', '127.0.0.1']
 
@@ -60,7 +60,7 @@ WSGI_APPLICATION = 'nagarik_sahayata.wsgi.application'
 
 # Database Configuration
 DATABASES = {
-    'default': dj_database_url.config(default=os.getenv('postgresql://postgres:ptAaMrQoCUSqEdozuGUuXbulitMcBncM@postgres.railway.internal:5432/railway'))
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
 # Password validation
