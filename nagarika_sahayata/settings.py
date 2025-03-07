@@ -1,7 +1,5 @@
 from pathlib import Path
 import os
-from dotenv import load_dotenv
-from decouple import config
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -65,10 +63,13 @@ WSGI_APPLICATION = 'nagarika_sahayata.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-load_dotenv()
 
 DATABASES = {
-    'default': dj_database_url.config(default=config('postgresql://postgres:ptAaMrQoCUSqEdozuGUuXbulitMcBncM@postgres.railway.internal:5432/railway'))
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL', 'postgres://postgres:ptAaMrQoCUSqEdozuGUuXbulitMcBncM@nagariksahayata-production.up.railway.app:8080/railway'),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 # Password validation
